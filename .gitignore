@@ -1,0 +1,14 @@
+/.idea/
+/target
+/build
+/logs
+/data
+/config
+/node_modules
+/ExtentReports
+*.iml
+*.log
+*.iws
+*.ipr
+*.json
+*.js
