@@ -5,10 +5,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Driver {
     WebDriver driver;
+    ReadProperties readProperties = new ReadProperties();
 
 
     public WebDriver initDriver() {
-        String browserName = ReadProperties.browser;
+        String browserName = readProperties.getBrowser();
         switch (browserName) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");

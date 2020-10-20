@@ -5,26 +5,37 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ReadProperties {
-    public static final String PATH_TO_PROPERTIES = "src/main/resources/config.properties";
-    public static String url;
-    public static String browser;
+    private String PATH_TO_PROPERTIES = "src/main/resources/config.properties";
 
-    static {
+    private String readProp(String name) {
         FileInputStream fileInputStream;
         Properties prop = new Properties();
 
         try {
             fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
             prop.load(fileInputStream);
-
-            url = prop.getProperty("url");
-            browser = prop.getProperty("browser");
-
+            return prop.getProperty(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return prop.getProperty(name);
     }
 
+    public String getUrl() {
+        return readProp("url");
+    }
+
+    public String getBrowser() {
+        return readProp("browser");
+    }
+
+    public String getLogin() {
+        return readProp("login");
+    }
+
+    public String getPassword() {
+        return readProp("password");
+
+    }
 
 }
