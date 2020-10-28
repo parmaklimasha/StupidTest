@@ -1,50 +1,91 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Driver;
 import utils.ReadProperties;
 
+
 public class LoginPage {
-    protected static WebDriver driver;
-    private By loginInput = By.cssSelector("input.register-new-input-text.clear-chrome");
-    private By passwordInput = By.cssSelector("input.register-new-input-text.clear-chrome");
+
+    protected Driver driver = new Driver();
+    WebDriverWait wait = new WebDriverWait(driver.getDriver(), 30);
+
+
+    ReadProperties readProperties = new ReadProperties();
+    private By credentialsInput = By.cssSelector("input.register-new-input-text.clear-chrome");
     private By profileButton = By.xpath("//li[@class='header-profile']");
     private By loginByEmailOrPasswordButton = By.xpath("(//div[@class='register-new-header head-wrapper-mail'])[2]");
-    private By submitButton = By.xpath("(//button[@type='submit'])[2]");
-    private By personalInformationTab = By.xpath("(//button[@type='submit'])[2]");
-    private By personalNameAndLastname = By.xpath("//span[@class='ph-cab-personal-info-col-text-issue']");
+    private By personalInformationTab = By.cssSelector(".ph-cab-toggle-inner");
+    private By personalNameAndLastname = By.cssSelector(".ph-cab-personal-info-fullname");
+    private By loginProfileButton = By.cssSelector(".hidden-tablet");
+    private By submitButton = By.cssSelector("#wlpeSaveRegisterButton");
+    private By mainPage = By.xpath("//a[@title='PetHouse']");
 
-    public void enterLoginAndPassword(String userName, String password) {
-        driver.findElements(loginInput).get(1).sendKeys(userName);
-        driver.findElements(passwordInput).get(2).sendKeys(password);
+    public void returnMainPage() {
+        driver.getDriver().findElement(mainPage).click();
+    }
+
+    public void clickSubmitLogin() {
+        try {
+            WebElement submitLogin = driver.getDriver().findElements(submitButton).get(1);
+            submitLogin.click();
+        } catch (org.openqa.selenium.StaleElementReferenceException exception) {
+            WebElement submitLogin = driver.getDriver().findElements(submitButton).get(1);
+            submitLogin.click();
+        }
 
     }
-public void submitLogin(){
-        driver.findElement(submitButton).click();
-}
-    private void clickOnProfile() {
-        driver.findElement(profileButton).click();
+
+    public void clickOnYourProfile() {
+        try {
+            WebElement button = driver.getDriver().findElements(loginProfileButton).get(0);
+            button.click();
+        } catch (org.openqa.selenium.StaleElementReferenceException exception) {
+            WebElement button = driver.getDriver().findElements(loginProfileButton).get(0);
+            button.click();
+        }
+    }
+
+    public void enterLoginAndPassword(String userName, String password) {
+        driver.getDriver().findElements(credentialsInput).get(3).sendKeys(userName);
+        driver.getDriver().findElements(credentialsInput).get(4).sendKeys(password);
+
+    }
+
+    public void openWebsite() {
+        driver.getDriver().get(readProperties.getUrl());
+    }
+
+
+    public void clickOnProfile() {
+        wait.until(ExpectedConditions.elementToBeClickable(profileButton));
+        driver.getDriver().findElement(profileButton).click();
     }
 
     private void clickOnOptionOfLogin() {
-        driver.findElement(loginByEmailOrPasswordButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(loginByEmailOrPasswordButton));
+        driver.getDriver().findElement(loginByEmailOrPasswordButton).click();
     }
 
     public void loginAsUser() {
-        clickOnOptionOfLogin();
         clickOnProfile();
+        clickOnOptionOfLogin();
     }
 
-    private void clickOnPersonalInformationTab(){
-        driver.findElement(personalInformationTab).click();
-    }
-    private String getPersonalNameAndLastname(){
-        return driver.findElements(personalNameAndLastname).get(1).getText();
+    public void clickOnPersonalInformationTab() {
+        driver.getDriver().findElements(personalInformationTab).get(1).click();
     }
 
-    public String readNameAndLastName(){
+    private String getPersonalNameAndLastname() {
+        return driver.getDriver().findElement(personalNameAndLastname).getText();
+    }
+
+    public String readNameAndLastName() {
         clickOnPersonalInformationTab();
-       return getPersonalNameAndLastname();
+        return getPersonalNameAndLastname();
     }
 
 
