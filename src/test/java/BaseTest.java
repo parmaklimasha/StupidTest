@@ -32,7 +32,7 @@ public class BaseTest {
 
 
     @AfterTest
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         loginPage.clickOnYourProfile();
         loginPage.clickExit();
         Assert.assertEquals(loginPage.getPageHeader(),"Вход в личный кабинет");
