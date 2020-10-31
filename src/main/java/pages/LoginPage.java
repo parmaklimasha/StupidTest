@@ -23,6 +23,16 @@ public class LoginPage {
     private By loginProfileButton = By.cssSelector(".hidden-tablet");
     private By submitButton = By.cssSelector("#wlpeSaveRegisterButton");
     private By mainPage = By.xpath("//a[@title='PetHouse']");
+    private By exitButton = By.cssSelector(".z2-profile-exit");
+    private By pageHeader = By.cssSelector(".tpl-page-header");
+
+    public String getPageHeader() {
+        return driver.getDriver().findElement(pageHeader).getText();
+    }
+
+    public void clickExit() {
+        driver.getDriver().findElements(exitButton).get(0).click();
+    }
 
     public void returnMainPage() {
         driver.getDriver().findElement(mainPage).click();

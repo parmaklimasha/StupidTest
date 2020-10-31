@@ -18,6 +18,7 @@ public class BaseTest {
     @BeforeTest
     public void beforeMethod() {
         webDriver = driver.getDriver();
+        driver.getDriver().manage().window().maximize();
         driver.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         loginPage.openWebsite();
         loginPage.loginAsUser();
@@ -31,7 +32,10 @@ public class BaseTest {
 
 
     @AfterTest
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        loginPage.clickOnYourProfile();
+        loginPage.clickExit();
+        Assert.assertEquals(loginPage.getPageHeader(),"Вход в личный кабинет");
         webDriver.quit();
     }
 
