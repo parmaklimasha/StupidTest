@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import pages.LoginPage;
 import utils.Driver;
 import utils.ReadProperties;
@@ -15,7 +15,7 @@ public class BaseTest {
     ReadProperties readProperties = new ReadProperties();
     LoginPage loginPage = new LoginPage();
 
-    @BeforeMethod
+    @BeforeTest
     public void beforeMethod() {
         webDriver = driver.getDriver();
         driver.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -30,7 +30,7 @@ public class BaseTest {
     }
 
 
-    @AfterMethod
+    @AfterTest
     public void tearDown() {
         webDriver.quit();
     }

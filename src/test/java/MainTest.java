@@ -7,8 +7,17 @@ public class MainTest extends BaseTest {
 
     @Test
     public void countPromotionsAndDiscounts() {
-        Assert.assertEquals(mainPage.getNumberOfProducts(), 12);
+        Assert.assertEquals(mainPage.getNumberOfProductsFirstBlock(), 12);
     }
 
+    @Test
+    public void countNewItems() {
+        Assert.assertEquals(mainPage.getNumberOfProductsSecondBlock(), 6);
 
+    }
+
+    @Test
+    public void countNewReviews() {
+        Assert.assertEquals(mainPage.getNumberOfCustomersReviews(), 4);
+    }
 }
